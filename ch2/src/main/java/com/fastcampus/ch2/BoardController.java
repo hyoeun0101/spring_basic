@@ -15,7 +15,7 @@ public class BoardController {
 
 		//로그인 안했으면 loginForm 으로
 		if(!loginCheck(request)) {
-			return "redirect:/login/login";
+			return "redirect:/login/login?toURL="+request.getRequestURL();
 		}
 		//로그인 했다면 boardList 로
 		

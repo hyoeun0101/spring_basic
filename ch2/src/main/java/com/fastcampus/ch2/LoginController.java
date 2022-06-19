@@ -29,7 +29,7 @@ public class LoginController {
 	
 	
 	@PostMapping("/login")
-	public String login(String id, String pwd, boolean rememberId, HttpServletResponse response,HttpServletRequest request) throws Exception {
+	public String login(String id, String pwd, boolean rememberId, String toURL,HttpServletResponse response,HttpServletRequest request) throws Exception {
 		System.out.println("id="+id);
 		System.out.println("pwd="+pwd);
 		System.out.println("rememberId="+rememberId);
@@ -58,7 +58,8 @@ public class LoginController {
 			response.addCookie(cookie);
 		}
 //		3. 홈으로 이동
-		return "redirect:/";
+	
+		return "redirect:"+ ((toURL == null || toURL.equals("")) ? "/" : toURL);
 	}
 
 	private boolean loginCheck(String id, String pwd) {

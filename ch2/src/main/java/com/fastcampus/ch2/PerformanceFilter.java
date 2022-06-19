@@ -1,6 +1,7 @@
 package com.fastcampus.ch2;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -26,11 +27,18 @@ public class PerformanceFilter implements Filter {
 		long startTime = System.currentTimeMillis();
 
 		// 2. 서블릿 또는 다음 필터를 호출
-		chain.doFilter(request, response); 
 		
+		chain.doFilter(request, response); 
+
 		// 3. 후처리 작업
-		System.out.print("["+((HttpServletRequest)request).getRequestURI()+"]");
-		System.out.println(" 소요시간="+(System.currentTimeMillis()-startTime)+"ms");
+		HttpServletRequest req = (HttpServletRequest)request;
+		
+		
+		//요청 보낸 곳
+		String refer = req.getHeader("referer");
+		String method = req.getMethod();
+		System.out.print("[" + refer + "] -> " + method + "[" + req.getRequestURL() + "]");
+		System.out.println("   소요시간="+(System.currentTimeMillis()-startTime)+"ms");
 	}
 
 	@Override
